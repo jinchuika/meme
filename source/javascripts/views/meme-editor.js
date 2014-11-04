@@ -86,6 +86,7 @@ MEME.MemeEditorView = Backbone.View.extend({
     'change #watermark': 'onWatermark',
     'change #text-align': 'onTextAlign',
     'change #text-shadow': 'onTextShadow',
+    'change #overlay-shape': 'onOverlayShape',
     'input #height': 'onHeight',
     'input #width': 'onWidth',
     'change [name="overlay"]': 'onOverlayColor',
@@ -152,6 +153,10 @@ MEME.MemeEditorView = Backbone.View.extend({
   
   onOverlayAlpha: function(evt) {
     this.model.set('overlayAlpha', this.$('#overlay-alpha').val());
+  },
+  
+  onOverlayShape: function(evt) {
+    this.model.set('overlayShape', this.$('#overlay-shape').prop('checked'));
   },
 
   getDataTransfer: function(evt) {

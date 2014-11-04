@@ -20,6 +20,7 @@ MEME.MemeModel = Backbone.Model.extend({
     overlayAlpha: 0.5,
     overlayColor: '#000',
     overlayColorOpts: ['#000', '#777', '#2980b9'],
+    overlayShape: false,
     paddingRatio: 0.05,
     textAlign: 'left',
     textAlignOpts: ['left', 'center', 'right'],
