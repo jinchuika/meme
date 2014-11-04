@@ -73,7 +73,7 @@ MEME.MemeCanvasView = Backbone.View.extend({
     }
 
     function renderHeadline(ctx) {
-      var maxWidth = Math.round(d.width * 0.75);
+      var maxWidth = Math.round(d.width * 0.50);
       var x = padding;
       var y = padding;
 
@@ -85,8 +85,8 @@ MEME.MemeCanvasView = Backbone.View.extend({
       if (d.textShadow) {
         ctx.shadowColor = "#666";
         ctx.shadowOffsetX = -2;
-        ctx.shadowOffsetY = 1;
-        ctx.shadowBlur = 10;
+        ctx.shadowOffsetY = 4;
+        ctx.shadowBlur = 5;
       }
 
       // Text alignment:
@@ -129,7 +129,7 @@ MEME.MemeCanvasView = Backbone.View.extend({
       ctx.textBaseline = 'bottom';
       ctx.textAlign = 'left';
       ctx.fillStyle = d.fontColor;
-      ctx.font = 'normal '+ d.creditSize +'pt '+ d.fontFamily;
+      ctx.font = 'lighter '+ d.creditSize +'pt '+ d.fontFamily;
       ctx.fillText(d.creditText, padding, d.height - padding);
     }
 

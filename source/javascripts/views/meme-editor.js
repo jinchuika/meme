@@ -79,8 +79,9 @@ MEME.MemeEditorView = Backbone.View.extend({
     'input #headline': 'onHeadline',
     'input #credit': 'onCredit',
     'input #image-scale': 'onScale',
+    'input #credit-size': 'onCreditSize',
     'change #aspect': 'onAspect',
-    'change #font-size': 'onFontSize',
+    'input #font-size': 'onFontSize',
     'change #font-family': 'onFontFamily',
     'change #watermark': 'onWatermark',
     'change #text-align': 'onTextAlign',
@@ -88,13 +89,19 @@ MEME.MemeEditorView = Backbone.View.extend({
     'input #height': 'onHeight',
     'input #width': 'onWidth',
     'change [name="overlay"]': 'onOverlayColor',
+    'input #overlay-alpha': 'onOverlayAlpha',
     'dragover #dropzone': 'onZoneOver',
     'dragleave #dropzone': 'onZoneOut',
-    'drop #dropzone': 'onZoneDrop'
+    'drop #dropzone': 'onZoneDrop',
+    'change #uploader': 'onUpload'
   },
 
   onCredit: function() {
     this.model.set('creditText', this.$('#credit').val());
+  },
+  
+  onCreditSize: function() {
+    this.model.set('creditSize', this.$('#credit-size').val());
   },
 
   onHeadline: function() {
@@ -142,6 +149,10 @@ MEME.MemeEditorView = Backbone.View.extend({
   onOverlayColor: function(evt) {
     this.model.set('overlayColor', this.$(evt.target).val());
   },
+  
+  onOverlayAlpha: function(evt) {
+    this.model.set('overlayAlpha', this.$('#overlay-alpha').val());
+  },
 
   getDataTransfer: function(evt) {
     evt.stopPropagation();
@@ -160,6 +171,13 @@ MEME.MemeEditorView = Backbone.View.extend({
   onZoneOut: function(evt) {
     this.$('#dropzone').removeClass('pulse');
   },
+  
+  onUpload: function(evt) {
+    var file = event.target.files[0];
+    if(file){
+      this.model.loadBackground(file);
+    }
+  },
 
   onZoneDrop: function(evt) {
     var dataTransfer = this.getDataTransfer(evt);
@@ -167,5 +185,12 @@ MEME.MemeEditorView = Backbone.View.extend({
       this.model.loadBackground(dataTransfer.files[0]);
       this.$('#dropzone').removeClass('pulse');
     }
-  }
+  }/*,
+  onUpload: function(evt) {
+    var dataTransfer = this.getDataTransfer(evt);
+    if (dataTransfer) {
+      this.model.loadBackground(event.target.files[0];);
+      //this.$('#dropzone').removeClass('pulse');
+    }
+  }*/
 });

@@ -1,32 +1,27 @@
 var MEME_SETTINGS = {
-  creditText: '- ', // Default "credits" text.
-  creditSize: 35, // Font size for credit text.
+  creditText: '', // Default "credits" text.
+  creditSize: 24, // Font size for credit text.
   downloadName: 'share', // The name of the downloaded image file (will have a ".png" extension added).
   fontColor: 'white', // Universal font color.
 
   // Universal font family for texts:
   // Note that you'll need to included quoted font names as you would in CSS, ie: '"Knockout 28 B"'.
-  fontFamily: 'Arial',
+  fontFamily: 'Ubuntu',
   // Font family options: set to empty array to disable font selector.
   // These options may also be formatted as {text:'Knockout', value:'"Knockout 28 B"'}.
-  fontFamilyOpts: ['Arial', 'Helvetica Neue', 'Comic Sans MS'],
+  fontFamilyOpts: ['Arial', 'Ubuntu', 'Cantarell', 'Archivo Narrow', 'Titillium Web'],
   
   // Font size of main headline:
-  fontSize: 24,
-  // Font size options: set to empty array to disable font-size selector.
-  /*fontSizeOpts: [
-    {text: 'Small text', value: 14},
-    {text: 'Medium text', value: 24},
-    {text: 'Large text', value: 36},
-    {text: 'Muy Grande', value: 72}
-  ],*/
+  fontSize: 36,
+  //Render aspect ratio
   aspectOpts: [
     {text: '16:9', value: '1280x720'},
     {text: '1:1', value: '700x700'}
   ] ,
 
-  headlineText: 'El título de la imagen', // Default headline text.
+  headlineText: '', // Default headline text.
   height: 720, // Canvas rendering height.
+  width: 1280, // Canvas rendering width.
   imageScale: 1, // Background image scale.
   imageSrc: '', // Default background image path. MUST reside on host domain, or use base64 data.
   overlayAlpha: 0.5, // Opacity of image overlay.
@@ -34,7 +29,7 @@ var MEME_SETTINGS = {
   // Image overlay color, or blank ('') for no overlay:
   overlayColor: '#000',
   // Overlay color options: set to empty array to disable overlay options selector.
-  overlayColorOpts: ['#000', '#777', '#d30', '#2980b9'],
+  overlayColorOpts: ['#000', '#666', '#003399', '#660066'],
   paddingRatio: 0.08, // Percentage of canvas width to use as edge padding.
   
   // Text alignment: valid settings are "left", "center", and "right".
@@ -59,10 +54,9 @@ var MEME_SETTINGS = {
   // NOTE: only populate the "data" attributes with base64 data when concerned about Cross-Origin requests...
   // Otherwise, just leave "data" attributes blank and allow images to load from your server.
   watermarkOpts: [
+    {text: 'Sin marca', value: '', data: ''},
     {text: 'Visión de Fe', value: '<%= image_path("vdf.png") %>', data: ''},
     {text: 'Visión de Fe 2', value: '<%= image_path("vdf2.png") %>', data: ''},
     {text: 'Jóvenes', value: '<%= image_path("jdf.png") %>', data: ''}
-  ],
-
-  width: 1280 // Canvas rendering width.
+  ]
 };
