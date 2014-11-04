@@ -19,6 +19,11 @@ MEME.MemeEditorView = Backbone.View.extend({
         return memo += ['<option value="', opt.hasOwnProperty('value') ? opt.value : opt, '">', opt.hasOwnProperty('text') ? opt.text : opt, '</option>'].join('');
       }, '');
     }
+    
+    // Build aspect options:
+    if (d.aspectOpts && d.aspectOpts.length) {
+      $('#aspect').append(buildOptions(d.aspectOpts)).show();
+    }
 
     if (d.textShadowEdit) {
       $('#text-shadow').parent().show();
@@ -65,6 +70,8 @@ MEME.MemeEditorView = Backbone.View.extend({
     this.$('#font-family').val(d.fontFamily);
     this.$('#text-align').val(d.textAlign);
     this.$('#text-shadow').prop('checked', d.textShadow);
+    this.$('#height').val(d.height);
+    this.$('#width').val(d.width);
     this.$('#overlay').find('[value="'+d.overlayColor+'"]').prop('checked', true);
   },
 
@@ -72,11 +79,14 @@ MEME.MemeEditorView = Backbone.View.extend({
     'input #headline': 'onHeadline',
     'input #credit': 'onCredit',
     'input #image-scale': 'onScale',
+    'change #aspect': 'onAspect',
     'change #font-size': 'onFontSize',
     'change #font-family': 'onFontFamily',
     'change #watermark': 'onWatermark',
     'change #text-align': 'onTextAlign',
     'change #text-shadow': 'onTextShadow',
+    'input #height': 'onHeight',
+    'input #width': 'onWidth',
     'change [name="overlay"]': 'onOverlayColor',
     'dragover #dropzone': 'onZoneOver',
     'dragleave #dropzone': 'onZoneOut',
@@ -114,6 +124,19 @@ MEME.MemeEditorView = Backbone.View.extend({
 
   onScale: function() {
     this.model.set('imageScale', this.$('#image-scale').val());
+  },
+  
+  onAspect: function() {
+    this.model.set('width', this.$('#aspect').val().split('x')[0]);
+    this.model.set('height', this.$('#aspect').val().split('x')[1]);
+  },
+  
+  onHeight: function(evt) {
+    this.model.set('height', this.$('#height').val());
+  },
+  
+  onWidth: function(evt) {
+    this.model.set('width', this.$('#width').val());
   },
 
   onOverlayColor: function(evt) {
