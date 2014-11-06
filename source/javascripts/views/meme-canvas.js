@@ -66,24 +66,23 @@ MEME.MemeCanvasView = Backbone.View.extend({
         ctx.save();
         ctx.globalAlpha = d.overlayAlpha;
         
-        var grd=ctx.createRadialGradient(d.width/2,d.height/2,d.height,d.width/2,d.height/2,d.height/4);
-        grd.addColorStop(0,"black");
-        grd.addColorStop(1, d.overlayColor);
-        
-        //ctx.fillStyle = d.overlayColor;
-        ctx.fillStyle = grd;
-        ctx.beginPath();
-        
         if(d.overlayShape){
+          ctx.beginPath();
           ctx.moveTo(0,0);
           ctx.lineTo((d.width/3)*2,0);
           ctx.lineTo(d.width/3,d.height);
           ctx.lineTo(0,d.height);
-          ctx.fill();
+          ctx.fillStyle = d.overlayColor;
         }
+        else{
+          var grd=ctx.createRadialGradient(d.width/2,d.height/2,d.height,d.width/2,d.height/2,d.height/4);
+          grd.addColorStop(0,"black");
+          grd.addColorStop(1, d.overlayColor);
+          ctx.fillStyle = grd;
+          ctx.fillRect(0, 0, d.width, d.height);
+        }
+        ctx.fill();
         
-        ctx.fillRect(0, 0, d.width, d.height);
-        grd.globalAlpha = 0.2;
         ctx.globalAlpha = 1;
         ctx.restore();
       }
