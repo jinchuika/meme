@@ -19,11 +19,6 @@ MEME.MemeEditorView = Backbone.View.extend({
         return memo += ['<option value="', opt.hasOwnProperty('value') ? opt.value : opt, '">', opt.hasOwnProperty('text') ? opt.text : opt, '</option>'].join('');
       }, '');
     }
-    
-    // Build aspect options:
-    if (d.aspectOpts && d.aspectOpts.length) {
-      $('#aspect').append(buildOptions(d.aspectOpts)).show();
-    }
 
     if (d.textShadowEdit) {
       $('#text-shadow').parent().show();
@@ -58,6 +53,20 @@ MEME.MemeEditorView = Backbone.View.extend({
 
       $('#overlay').show().find('ul').append(overlayOpts);
     }
+    
+    // Build aspect ratio options:
+    if (d.aspectOpts && d.aspectOpts.length) {
+      var aspectOpts = _.reduce(d.aspectOpts, function(memo, opt) {
+        var aspect = opt.hasOwnProperty('value') ? opt.value : opt
+        ,text = opt.hasOwnProperty('text') ? opt.text : opt;
+        return memo += '<label><input type="radio" name="aspect" value="'+aspect+'">'+text+'</label>';
+      }, '');
+
+      $('#aspect').show().find('ul').append(aspectOpts);
+    }
+    
+    //hide more options
+    this.onMoreOptions();
   },
 
   render: function() {
@@ -65,6 +74,7 @@ MEME.MemeEditorView = Backbone.View.extend({
     this.$('#headline').val(d.headlineText);
     this.$('#credit').val(d.creditText);
     this.$('#watermark').val(d.watermarkSrc);
+    this.$('#watermark-size').val(d.watermarkMaxWidthRatio);
     this.$('#image-scale').val(d.imageScale);
     this.$('#font-size').val(d.fontSize);
     this.$('#font-family').val(d.fontFamily);
@@ -73,6 +83,7 @@ MEME.MemeEditorView = Backbone.View.extend({
     this.$('#height').val(d.height);
     this.$('#width').val(d.width);
     this.$('#overlay').find('[value="'+d.overlayColor+'"]').prop('checked', true);
+    //this.$('#aspect').find('[value="'+d.aspect+'"]').prop('checked', true);
   },
 
   events: {
@@ -80,10 +91,11 @@ MEME.MemeEditorView = Backbone.View.extend({
     'input #credit': 'onCredit',
     'input #image-scale': 'onScale',
     'input #credit-size': 'onCreditSize',
-    'change #aspect': 'onAspect',
+    'change [name="aspect"]': 'onAspect',
     'input #font-size': 'onFontSize',
     'change #font-family': 'onFontFamily',
     'change #watermark': 'onWatermark',
+    'input #watermark-size': 'onWatermarkSize',
     'change #text-align': 'onTextAlign',
     'change #text-shadow': 'onTextShadow',
     'change #overlay-shape': 'onOverlayShape',
@@ -94,7 +106,8 @@ MEME.MemeEditorView = Backbone.View.extend({
     'dragover #dropzone': 'onZoneOver',
     'dragleave #dropzone': 'onZoneOut',
     'drop #dropzone': 'onZoneDrop',
-    'change #uploader': 'onUpload'
+    'change #uploader': 'onUpload',
+    'change #btn-more-options' : 'onMoreOptions'
   },
 
   onCredit: function() {
@@ -129,14 +142,19 @@ MEME.MemeEditorView = Backbone.View.extend({
     this.model.set('watermarkSrc', this.$('#watermark').val());
     if (localStorage) localStorage.setItem('meme_watermark', this.$('#watermark').val());
   },
+  
+  onWatermarkSize: function() {
+    this.model.set('watermarkSrc', this.$('#watermark').val());
+    this.model.set('watermarkMaxWidthRatio', this.$('#watermark-size').val());
+  },
 
   onScale: function() {
     this.model.set('imageScale', this.$('#image-scale').val());
   },
   
-  onAspect: function() {
-    this.model.set('width', this.$('#aspect').val().split('x')[0]);
-    this.model.set('height', this.$('#aspect').val().split('x')[1]);
+  onAspect: function(evt) {
+    this.model.set('width', this.$(evt.target).val().split('x')[0]);
+    this.model.set('height', this.$(evt.target).val().split('x')[1]);
   },
   
   onHeight: function(evt) {
@@ -183,7 +201,16 @@ MEME.MemeEditorView = Backbone.View.extend({
       this.model.loadBackground(file);
     }
   },
-
+  
+  onMoreOptions: function (evt) {
+    if(this.$('#btn-more-options').prop('checked')===true){
+      this.$('#more-options').show();
+    }
+    else{
+      this.$('#more-options').hide();
+    }
+  },
+  
   onZoneDrop: function(evt) {
     var dataTransfer = this.getDataTransfer(evt);
     if (dataTransfer) {

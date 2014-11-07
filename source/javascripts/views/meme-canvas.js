@@ -38,6 +38,7 @@ MEME.MemeCanvasView = Backbone.View.extend({
     var d = this.model.toJSON();
     var ctx = this.canvas.getContext('2d');
     var padding = Math.round(d.width * d.paddingRatio);
+    
 
     // Reset canvas display:
     this.canvas.width = d.width;
@@ -58,8 +59,8 @@ MEME.MemeCanvasView = Backbone.View.extend({
         var cy = d.backgroundPosition.y || d.height / 2;
 
         ctx.drawImage(m.background, 0, 0, bw, bh, cx-(tw/2), cy-(th/2), tw, th);
-      }
-    }
+      
+      }    }
 
     function renderOverlay(ctx) {
       if (d.overlayColor) {
@@ -171,11 +172,21 @@ MEME.MemeCanvasView = Backbone.View.extend({
       }
     }
 
+    function renderFilter (ctx) {
+      Caman("#meme-canvas", m.background.src, function () {
+        // manipulate image here
+        this.exposure(-10).render();
+        console.log(m.background.src);
+      });
+      
+    }
+    
     renderBackground(ctx);
     renderOverlay(ctx);
     renderHeadline(ctx);
     renderCredit(ctx);
     renderWatermark(ctx);
+    renderFilter(ctx);
 
     var data = this.canvas.toDataURL(); //.replace('image/png', 'image/octet-stream');
     this.$('#meme-download').attr({

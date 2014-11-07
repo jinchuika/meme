@@ -4,6 +4,7 @@
 */
 MEME.MemeModel = Backbone.Model.extend({
   defaults: {
+    aspect: '1280x720',
     backgroundPosition: { x: null, y: null },
     creditText: 'Source:',
     creditSize: 12,

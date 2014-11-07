@@ -4,56 +4,73 @@
   
   <h2><label for="image-scale">Tamaño de la imagen</label></h2>
   <input id="image-scale" type="range" max="4" min=".01" step=".01" value="1">
-  <select class="aspect" id="aspect">
+  <!--select class="aspect" id="aspect">
     <option value="" disabled>Proporción</option>
-  </select>
+  </select-->
+  <div id="aspect">
+    <h2>Proporción</h2>
+    <ul class="checkbox-group">
+      
+    </ul>
+  </div>
   <!--h2>Tamaño del lienzo</h2-->
   <!--h2><label for="height">Altura</label></h2-->
   <input id="height" name="height" type="hidden" value="">
   <!--h2><label for="width">Ancho</label></h2-->
   <input id="width" name="width" type="hidden" value="">
   
-  <hr>
   <h2><label for="headline">Encabezado</label></h2>
   <textarea id="headline" name="headline" type="text" value=""></textarea>
-  <select class="text-align" id="text-align">
-    <option value="" disabled>Alineación</option>
-  </select>
   
   <h2><label for="font-size">Tamaño del encabezado</label></h2>
   <input id="font-size" type="range" max="72" min="12" step="4" value="24">
   
   <h2><label for="credit">Cita</label></h2>
   <input id="credit" name="credit" type="text" value="">
-  
-  <h2><label for="credit-size">Tamaño de la cita</label></h2>
-  <input id="credit-size" type="range" max="56" min="12" step="4" value="24">
-
-  <select class="font-family" id="font-family">
-    <option value="" disabled>Fuente</option>
-  </select>
 
   <select class="watermark" id="watermark">
     <option value="" disabled>Marca de agua</option>
   </select>
-  
-  <div class="checkbox-group text-shadow">
-    <input id="text-shadow" name="shadow" type="checkbox"> 
-    <label for="text-shadow">Sombra del texto</label>
-  </div>
 
   <div class="m-editor__overlay" id="overlay">
     <h2>Color</h2>
     <ul class="checkbox-group">
-      <li><label><input type="radio" name="overlay" value=""> Ninguno</label></li>
+      <li><label><input type="radio" name="overlay" value=""></label></li>
     </ul>
   </div>
   
-  <h2><label for="overlay-alpha">Opacidad</label></h2>
-  <input id="overlay-alpha" type="range" max="0.8" min="0.1" step="0.1" value="0.5">
+  <hr>
+  <div class="checkbox-group btn-more-options">
+    <input id="btn-more-options" name="btn-more-options" type="checkbox"> 
+    <label for="btn-more-options">Modo avanzado</label>
+  </div>
   
-  <div class="checkbox-group overlay-shape">
-    <input id="overlay-shape" name="overlay-shape" type="checkbox"> 
-    <label for="overlay-shape">Forma en la sombra</label>
+  <div id="more-options">
+    <select class="text-align" id="text-align">
+      <option value="" disabled>Alineación</option>
+    </select>
+    
+    <h2><label for="credit-size">Tamaño de la cita</label></h2>
+    <input id="credit-size" type="range" max="56" min="12" step="4" value="24">
+    
+    <h2><label for="watermark-size">Tamaño de la marca</label></h2>
+    <input id="watermark-size" type="range" max="0.5" min="0.2" step="0.05" value="0.35">
+    
+    <select class="font-family" id="font-family">
+      <option value="" disabled>Fuente</option>
+    </select>
+    
+    <h2><label for="overlay-alpha">Opacidad del filtro</label></h2>
+    <input id="overlay-alpha" type="range" max="0.8" min="0.1" step="0.1" value="0.5">
+    
+    <div class="checkbox-group text-shadow">
+      <input id="text-shadow" name="shadow" type="checkbox"> 
+      <label for="text-shadow">Sombra del texto</label>
+    </div>
+    
+    <div class="checkbox-group overlay-shape">
+      <input id="overlay-shape" name="overlay-shape" type="checkbox"> 
+      <label for="overlay-shape">Forma en la sombra</label>
+    </div>
   </div>
 </form>
